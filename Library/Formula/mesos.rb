@@ -23,18 +23,11 @@ end
 
 class Mesos < Formula
   homepage 'http://mesos.apache.org'
-  url 'http://www.webhostingjams.com/mirror/apache/mesos/0.14.1/mesos-0.14.1.tar.gz'
-  sha1 '0b8e7ebd9c8a28f073b955f7229c5a28ee2d7120'
-
-  fails_with :clang do
-    cause 'struct/class definition mismatches'
-  end
-
-  fails_with :gcc do
-    cause 'multiple configure and compile errors'
-  end
+  url 'http://mirror.cogentco.com/pub/apache/mesos/0.19.0/mesos-0.19.0.tar.gz'
+  sha1 '68d898e089a6b806fc88e0b1840f2dc4068cb5fe'
 
   depends_on Java7Requirement
+  depends_on 'maven' => :build
 
   def install
     system "./configure", "--disable-debug",
@@ -44,16 +37,5 @@ class Mesos < Formula
 
     system "make"
     system "make", "install"
-  end
-
-  def caveats
-    <<-EOS.undent
-      Mesos doesn't install on clang or apple-gcc-4.2.
-      The only compiler I had luck with was gcc-4.6.
-
-      Make sure to do the following:
-        1. brew install gcc46
-        2. brew install mesos --cc=gcc-4.6
-    EOS
   end
 end
