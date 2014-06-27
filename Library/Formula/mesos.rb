@@ -35,4 +35,8 @@ class Mesos < Formula
     system "make"
     system "make", "install"
   end
+
+  test do
+    system "#{sbin}/mesos-master", "--version"
+  end
 end
